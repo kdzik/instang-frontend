@@ -1,0 +1,76 @@
+main
+    margin: 2em 0
+    .container
+        max-width: 1200px
+        .feed
+            float: left
+            max-width: 70%
+            width: 100%
+            &__item
+                -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15)
+                -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15)
+                box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15)
+                border: 1px solid #bababa
+                border-radius: 0.2em
+                margin-bottom: 1.5em
+                header h5
+                    padding: .3em .3em 0 .5em
+                    margin: 0
+                    font-size: 1.2em
+                    font-weight: bold
+                main 
+                    margin: 0.5em 0
+                    img
+                        width: 100%
+                footer
+                    p a
+                        color: #000
+                        margin-right: 5px
+                        font-weight: bold
+                    .reactions
+                        padding: 0 .5em
+                        & > * 
+                            margin-right: 5px
+                        .like
+                            cursor: pointer
+                        .like--clicked
+                            color: red
+                    .comments, .description, .likes
+                        padding: 0 .5em 0 .5em
+                    .comments
+                        .comment p
+                            padding: 0
+                            margin: .2em 0
+                    .add__comment
+                        padding: 1em
+        .user
+            margin-right: 17.5em
+            float: right
+            &__container
+                position: fixed
+                display: flex
+                flex-direction: row
+                width: 100%
+            .wrapper
+                width: 50px
+                height: 50px
+                overflow: hidden
+                border-radius:50%
+                img
+                    display: inline
+                    margin: 0 auto
+                    height: 100%
+                    width: 100%
+             
+            &__info
+                display: flex
+                flex-direction: column
+                margin-left: 10px
+                .nickname
+                    font-weight: bold
+                .name-surname
+                    font-size: 0.8em
+                    color: #666
+                    
+                                        
+                    

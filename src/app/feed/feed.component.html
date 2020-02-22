@@ -1,0 +1,81 @@
+<main>
+    <div class="container">
+        <div class="user">
+            <div class="user__container">
+                <div class="wrapper">
+                   <img src="../../assets/img/einstein.jpg" alt="User avatar">
+                </div>
+            <div class="user__info">
+                <span class="nickname">nickname</span>
+                <span class="name-surname">Krystian Dzik</span>
+            </div>
+            </div>
+        </div>
+        <div class="feed">
+            <div class="feed__item">
+                <header>
+                    <h5>username</h5>
+                </header>
+                <main>
+                    <img src="../../assets/img/img1.jpeg" alt="image">
+                </main>
+                <footer>
+                    <div class="reactions">
+                        <i [style.color]="liked == true? 'black' : 'red'" (click)="like()" class="material-icons like">{{liked == true ? "favorite_border" : "favorite"}}</i>
+                        <i class="material-icons">chat_bubble_outline</i>
+                    </div>
+                    <div class="likes">
+                        Likes: 12
+                    </div>
+                    <div class="description">
+                        <p><a href="#">Autor posta</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
+                    </div>
+                    <div class="comments">
+                        <div class="comment">
+                            <p><a href="#">Autor komentarza</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
+                        </div>
+                        <div class="comment">
+                            <p><a href="#">Autor komentarza</a>to jest opis. asd as das das da sd a</p>
+                        </div>
+                    </div>
+                    <div class="add__comment">
+                        <input type="text" name="comment" id="addComment" placeholder="Comment...">
+                    </div>
+                </footer>
+            </div>
+
+
+            <div class="feed__item">
+                <header>
+                    <h5>username</h5>
+                </header>
+                <main>
+                    <img src="../../assets/img/img1.jpeg" alt="image">
+                </main>
+                <footer>
+                    <div class="reactions">
+                        <i [style.color]="liked == true? 'black' : 'red'" (click)="like()" class="material-icons like">{{liked == true ? "favorite_border" : "favorite"}}</i>
+                        <i class="material-icons">chat_bubble_outline</i>
+                    </div>
+                    <div class="likes">
+                        Likes: 12
+                    </div>
+                    <div class="description">
+                        <p><a href="#">Autor posta</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
+                    </div>
+                    <div class="comments">
+                        <div class="comment">
+                            <p><a href="#">Autor komentarza</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
+                        </div>
+                        <div class="comment">
+                            <p><a href="#">Autor komentarza</a>to jest opis. asd as das das da sd a</p>
+                        </div>
+                    </div>
+                    <div class="add__comment">
+                        <input type="text" name="comment" id="addComment" placeholder="Comment...">
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</main>
