@@ -14,7 +14,7 @@ header
         ul
             display: flex
             li
-                margin-right: 1.2em
+                margin-right: 2em
                 font-weight: bold
 .gallery
     max-width: 600px
@@ -25,3 +25,74 @@ header
             height: 100%
             width: 100%
             object-fit: cover
+
+.myModal
+  background-color: rgba(0,0,0,0.75)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  z-index: 1000
+  .modal__body
+    display: flex
+    line-height: 0
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: #f8f8f8
+    padding: 0
+    z-index: 1000
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    text-align: center
+    hr
+        border-top: 1px solid #d8d8d8
+    button
+        font-size: 1.2em
+        position: absolute
+        right: 5px
+        top: 5px
+        border: 0
+        padding: .1em
+        cursor: pointer
+        color: #000
+        background: inherit
+    img
+        padding: 0
+        margin: 0
+    .user
+            display: block
+            width: 30vw
+            &__container
+                display: flex
+                flex-direction: row
+                align-items: flex-start
+                width: 100%
+                margin-left: 2em
+                margin-top: 1em
+                margin-bottom: .75em
+            img
+                width: 2.5em
+                height: 2.5em
+                object-fit: cover
+                border-radius: 50%
+            .info
+                line-height: 1.2
+                display: flex
+                flex-direction: column
+                flex-wrap: wrap
+                align-items: flex-start
+                margin-left: 1em
+                .nickname
+                    font-weight: bold
+                    margin-top: .5em
+                p
+                    margin: 0
+                    padding: 0
+                    max-width: 80%
+                    text-align: left
+    
+  

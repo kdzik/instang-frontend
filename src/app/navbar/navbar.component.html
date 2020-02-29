@@ -6,10 +6,22 @@
         <div class="search">
             <input id="search__input" type="text" placeholder="Search">
         </div>
-        <div class="options">
-            <a href="#"><i class="material-icons">file_upload</i></a>
-            <a routerLink="/profile"><i class="material-icons">perm_identity</i></a>
-            <a href="#"><i class="material-icons">exit_to_app</i></a>
-        </div>
+        <ul class="options">
+            <li (click)="uploadModal = !uploadModal"><i class="material-icons">file_upload</i></li>
+            <li routerLink="/profile"><i class="material-icons">perm_identity</i></li>
+            <li href="#"><i class="material-icons">exit_to_app</i></li>
+        </ul>
     </div>
 </nav>
+
+<div *ngIf="uploadModal" class="myModal">
+    <div class="modal__body">
+        <button (click)="uploadModal = !uploadModal" class="cancelModal"><i class="material-icons">clear</i></button>
+        <p>Pick image to be uploaded. (Accepted formats *.jpg, *.jpeg, *.png, *.gif)</p>
+        <input type="file" name="uploadFile" id="uploadFile">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+                
+    </div>
+</div>

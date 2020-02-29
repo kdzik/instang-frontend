@@ -9,6 +9,11 @@ import { PhotoListComponent } from './photo-list/photo-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FeedComponent } from './feed/feed.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+
+import  { RegisterService } from './services/register.service';
+import { PhotoService } from './services/photo.service';
 
 @NgModule({
   declarations: [
@@ -17,12 +22,14 @@ import { ProfileComponent } from './profile/profile.component';
     PhotoListComponent,
     NavbarComponent,
     FeedComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
