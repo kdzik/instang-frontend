@@ -1,0 +1,24 @@
+<div class="container form__container">
+    <form class="row" (submit)="onLogin()">
+        <input class="input-field" type="text" [(ngModel)]="model.username" name="login" id="login" placeholder="Login...">
+        <input class="input-field" type="text" [(ngModel)]="model.password" name="password" id="password" placeholder="Password...">
+        <input class="waves-effect waves-light btn" type="submit" value="Login">
+    </form>
+    <button (click)="registerModal = !registerModal" class="waves-effect waves-light btn purple darken-2">Sign up</button>
+</div>
+
+<div *ngIf="registerModal" class="myModal">
+    <div class="modal__body">
+        <button (click)="registerModal = !registerModal" class="cancelModal"><i class="material-icons">clear</i></button>
+        <form class="row" (submit)="onRegister()">
+            <input class="input-field" [(ngModel)]="newUser.firstName" type="text" name="firstName" id="firstName" placeholder="First name...">
+            <input class="input-field" [(ngModel)]="newUser.lastName" type="text" name="lastName" id="lastName" placeholder="Last name...">
+            <input class="input-field" [(ngModel)]="newUser.userName" type="text" name="userName" id="userName" placeholder="Login...">
+            <input class="input-field" [(ngModel)]="newUser.password" type="password" name="password" id="password" placeholder="Password...">
+            <button class="waves-effect waves-light btn" type="submit">Register</button>
+        </form>
+        <div *ngIf="registered">
+            <h1>Register Successs!</h1>
+        </div>
+    </div>
+</div>

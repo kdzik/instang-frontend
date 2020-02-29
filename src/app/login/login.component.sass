@@ -1,0 +1,46 @@
+.form__container
+    margin-top: 3em
+    max-width: 20vw
+    background-color: #f4f4f4
+    padding: 1em
+
+
+.myModal
+  background-color: rgba(0,0,0,0.75)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  z-index: 1000
+  .modal__body
+    display: flex
+    position: absolute
+    flex-direction: column
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: #f8f8f8
+    padding: 2em
+    z-index: 1000
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75)
+    text-align: center
+    .cancelModal
+        font-size: 1.2em
+        position: absolute
+        right: 5px
+        top: 5px
+        border: 0
+        padding: .1em
+        cursor: pointer
+        color: #000
+        background: inherit
+    button[type="submit"]
+        margin-top: 1.5em
+        margin-left: auto
+        margin-right: auto
+        width: auto
+        display: inline-block
+        max-width: 10em
