@@ -18,7 +18,7 @@ export class LoginService {
 
   sendToken(token){
     let tokenUrl2 = "http://localhost:8080/rest/user/users";
-    console.log('Bearer '+ token);
+//    console.log('Bearer '+ token);
 
     let getHeaders = new HttpHeaders({'Authorization':'Bearer '+token});
 
@@ -33,8 +33,8 @@ export class LoginService {
 
   checkLogin(){
     if(localStorage.getItem("currentUserName")!=null && localStorage.getItem("currentUserName")!='' && localStorage.getItem("token")!=null && localStorage.getItem("token")!=''){
-      console.log(localStorage.getItem("currentUserName"));
-      console.log(localStorage.getItem("token"));
+  //    console.log(localStorage.getItem("currentUserName"));
+   //   console.log(localStorage.getItem("token"));
       return true;
     } else {
       return false;
