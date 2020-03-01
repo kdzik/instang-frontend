@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { RegisterService } from '../services/register.service';
 import { LoginService } from '../services/login.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   public model = {'username':'', 'password':''};
   public currentUserName;
 
-  constructor(private regService: RegisterService, private loginService: LoginService) { 
+  constructor(private regService: RegisterService, private loginService: LoginService, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("currentUserName", this.model.username);
             this.model.username = '';
             this.model.password = '';
+            this.router.navigateByUrl('/');
           },
           err => {
             console.log(err);

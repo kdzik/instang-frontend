@@ -21,15 +21,8 @@
 
 
         <div class="gallery">
-            <div class="row">
-                <div (click)="detailsModal = !detailsModal" class="col s4 gallery__picture"><img src="../../assets/img/einstein.jpg" alt="Picture"></div>
-                <div class="col s4 gallery__picture"><img src="../../assets/img/tesla.jpg" alt="Picture"></div>
-                <div class="col s4 gallery__picture"><img src="../../assets/img/audi.jpeg" alt="Picture"></div>
-            </div>
-            <div class="row">
-                <div class="col s4 gallery__picture"><img src="../../assets/img/einstein.jpg" alt="Picture"></div>
-                <div class="col s4 gallery__picture"><img src="../../assets/img/tesla.jpg" alt="Picture"></div>
-                <div class="col s4 gallery__picture"><img src="../../assets/img/audi.jpeg" alt="Picture"></div>
+            <div *ngFor="let photo of photos" class="row">
+                <div (click)="onSelect(photo)" class="col s4 gallery__picture"><img src='http://localhost:8080/images/{{photo.imageName}}' alt="Picture"></div>
             </div>
         </div>
           
@@ -37,7 +30,7 @@
 <div *ngIf="detailsModal" class="myModal">
     <div class="modal__body">
         <img src="../../assets/img/einstein.jpg" alt="Picture">
-        <button (click)="detailsModal = !detailsModal" class="cancelModal"><i class="material-icons">clear</i></button>
+        <button class="cancelModal"><i class="material-icons">clear</i></button>
         <div class="info">
             <div class="user">
                 <div class="user__container">
