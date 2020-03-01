@@ -21,6 +21,7 @@
     <div class="modal__body">
         <button (click)="uploadModal = !uploadModal" class="cancelModal"><i class="material-icons">clear</i></button>
         <p>Pick image to be uploaded. (Accepted formats *.jpg, *.jpeg, *.png, *.gif)</p>
+        <input type="text" [(ngModel)]="newPhoto.description" name="photoDescription" id="photoDescription">
         <input (change)="onFileChange($event)" type="file" name="uploadFile" id="uploadFile">
         <button (click)="onFileSend()" class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>

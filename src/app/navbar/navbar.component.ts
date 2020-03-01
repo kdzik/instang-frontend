@@ -4,7 +4,6 @@ import { UserService } from '../services/user.service';
 import { Photo } from '../models/photo';
 import { User } from '../models/user';
 import { AddPhotoService } from '../services/add-photo.service';
-import { UploadPhotoService } from '../services/upload-photo.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 
@@ -41,7 +40,8 @@ selectedFile: File = null;
           err => console.log(err)
         )
       },
-      err => console.log(err)
+      err => {console.log(err)
+      console.log("ERROR")}
     )
   }
 
