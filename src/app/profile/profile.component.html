@@ -21,17 +21,17 @@
 
 
         <div class="gallery">
-            <div *ngFor="let photo of photos" class="row">
-                <div (click)="onSelect(photo)" class="col s4 gallery__picture"><img src='http://localhost:8080/images/{{photo.imageName}}' alt="Picture"></div>
+            <div class="row">
+                <div *ngFor="let photo of photos" (click)="onSelect(photo)" class="col s4 gallery__picture"><img src="http://localhost:8080/images/{{photo.imageName}}" alt="Picture"></div>
             </div>
         </div>
           
 
 <div *ngIf="detailsModal" class="myModal">
     <div class="modal__body">
-        <img src="../../assets/img/einstein.jpg" alt="Picture">
-        <button class="cancelModal"><i class="material-icons">clear</i></button>
-        <div class="info">
+        <img src="http://localhost:8080/images/{{selectedPhoto.imageName}}" alt="Picture">
+        <button (click)="closeModal()" class="cancelModal"><i class="material-icons">clear</i></button>
+        <div class="rightPanel">
             <div class="user">
                 <div class="user__container">
                        <img src="../../assets/img/einstein.jpg" alt="User avatar">
@@ -47,7 +47,7 @@
                            <img src="../../assets/img/einstein.jpg" alt="User avatar">
                     <div class="info">
                         <span class="nickname">nickname</span>
-                        <p>sadadso ao dkaso dkao kdaodaosdk as da  asd as das </p>
+                        <p>{{selectedPhoto.description}}</p>
                     </div>
                     </div>
                 </div>

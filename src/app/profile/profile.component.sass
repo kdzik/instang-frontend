@@ -41,6 +41,7 @@ header
     position: absolute
     top: 50%
     left: 50%
+    width: 80%
     transform: translate(-50%, -50%)
     background-color: #f8f8f8
     padding: 0
@@ -64,36 +65,40 @@ header
     img
         padding: 0
         margin: 0
-    .user
-            display: block
-            width: 30vw
-            &__container
-                display: flex
-                flex-direction: row
-                align-items: flex-start
-                width: 100%
-                margin-left: 2em
-                margin-top: 1em
-                margin-bottom: .75em
-            img
-                width: 2.5em
-                height: 2.5em
-                object-fit: cover
-                border-radius: 50%
-            .info
-                line-height: 1.2
-                display: flex
-                flex-direction: column
-                flex-wrap: wrap
-                align-items: flex-start
-                margin-left: 1em
-                .nickname
-                    font-weight: bold
-                    margin-top: .5em
-                p
-                    margin: 0
-                    padding: 0
-                    max-width: 80%
-                    text-align: left
+        max-width: 60%
+    .rightPanel
+        width: 40%
+        .user
+                display: block
+                width: 30vw
+                &__container
+                    display: flex
+                    flex-direction: row
+                    align-items: flex-start
+                    width: 100%
+                    margin-left: 2em
+                    margin-top: 1em
+                    margin-bottom: .75em
+                img
+                    width: 2.5em
+                    height: 2.5em
+                    object-fit: cover
+                    border-radius: 50%
+                .info
+                    line-height: 1.2
+                    display: flex
+                    flex-direction: column
+                    flex-wrap: wrap
+                    align-items: flex-start
+                    margin-left: 1em
+                    width: 100%
+                    .nickname
+                        font-weight: bold
+                        margin-top: .5em
+                    p
+                        margin: 0
+                        padding: 0
+                        width: 80%
+                        text-align: left
+        
     
-  

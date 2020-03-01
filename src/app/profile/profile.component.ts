@@ -22,11 +22,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserByName(localStorage.getItem("currentUserName")).subscribe(
       user => {
-        this.user = JSON.parse(JSON.parse(JSON.stringify(user))._body);
+        this.user = JSON.parse(JSON.stringify(user));
         console.log(this.user);
         this.photoService.getPhotosByUser(this.user).subscribe(
           photos => {
-            console.log(this.photos = JSON.parse(JSON.parse(JSON.stringify(user))._body).photoList);
+            console.log(this.photos = JSON.parse(JSON.stringify(user)).photoList);
+            console.log(this.photos);
           },
           err => console.log(err)
         )
@@ -38,6 +39,10 @@ export class ProfileComponent implements OnInit {
   onSelect(photo: Photo){
     this.selectedPhoto = photo;
     this.detailsModal = !this.detailsModal
+  }
+
+  closeModal(){
+    this.detailsModal = !this.detailsModal;
   }
 
 }
