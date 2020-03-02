@@ -10,9 +10,6 @@ const routes: Routes = [
     path: "", component: FeedComponent
   },
   {
-    path: "profile", component: ProfileComponent
-  },
-  {
     path: "profile/:username", component: ProfileComponent
   },
   {

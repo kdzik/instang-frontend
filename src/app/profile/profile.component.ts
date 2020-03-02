@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    
+
     this.userName = this.route.snapshot.params['username'];
     if(this.userName == null){
       this.userName = localStorage.getItem("currentUserName");

@@ -7,9 +7,9 @@
               </div>
             </div>
               <div class="profile__info">
-                <h5>Username</h5>
+                <h5>{{userName}}</h5>
                 <ul>
-                    <li>Posts: 11</li>
+                    <li>Posts: {{user.photoList.length}}</li>
                     <li>12 Followers</li>
                     <li>Followed: 22</li>
                 </ul>
@@ -36,7 +36,7 @@
                 <div class="user__container">
                        <img src="../../assets/img/einstein.jpg" alt="User avatar">
                 <div class="info">
-                    <span class="nickname">nickname</span>
+                    <span class="nickname">{{userName}}</span>
                 </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     <div class="user__container">
                            <img src="../../assets/img/einstein.jpg" alt="User avatar">
                     <div class="info">
-                        <span class="nickname">nickname</span>
+                        <a [routerLink]="['../', this.userName]" class="nickname">{{this.userName}}</a>
                         <p>{{selectedPhoto.description}}</p>
                     </div>
                     </div>

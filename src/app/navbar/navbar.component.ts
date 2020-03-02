@@ -20,14 +20,16 @@ newPhoto: Photo = new Photo();
 photoAdded: boolean = false;
 user: User;
 selectedFile: File = null;
+loggedUserName: string;
 
   constructor(private loginService: LoginService, private userService: UserService, private addPhotoService: AddPhotoService) { }
 
   ngOnInit(): void {
+    this.loggedUserName = localStorage.getItem("currentUserName");
   }
 
   onFileSend() {
-    this.userService.getUserByName(localStorage.getItem("currentUserName")).subscribe(
+    this.userService.getUserByName(this.loggedUserName).subscribe(
       user => {
         this.user = JSON.parse(JSON.stringify(user));
         console.log(this.user);
