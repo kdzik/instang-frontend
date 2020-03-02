@@ -41,7 +41,7 @@
                 </div>
             </div>
             <hr>
-            <div class="description">
+            <section class="comments">
                 <div class="user">
                     <div class="user__container">
                            <img src="../../assets/img/einstein.jpg" alt="User avatar">
@@ -51,38 +51,26 @@
                     </div>
                     </div>
                 </div>
-
-                
-                <div class="user">
+                <div *ngFor="let comment of this.selectedPhoto.commentList" class="user">
                     <div class="user__container">
-                           <img src="../../assets/img/audi.jpeg" alt="User avatar">
+                           <img src="../../assets/img/einstein.jpg" alt="User avatar">
                     <div class="info">
-                        <span class="nickname">nickname</span>
-                        <p>asdas sado kaso dzxkco zjodka jzoxc zjcoadi jaoc jzxoc jzocnhzisjdkfcncxozi nhciozcxncj hzbxic bsIzjczihckizhjisoc  </p>
+                        <a [routerLink]="['../', comment.userName]" class="nickname">{{comment.userName}}</a>
+                        <p>{{comment.content}}</p>
                     </div>
                     </div>
                 </div>
-
-                <div class="user">
-                    <div class="user__container">
-                           <img src="../../assets/img/audi.jpeg" alt="User avatar">
-                    <div class="info">
-                        <span class="nickname">nickname</span>
-                        <p>asdas sado kaso dzxkco zjodka jzoxc zjcoadi jaoc jzxoc jzocnhzisjdkfcncxozi nhciozcxncj hzbxic bsIzjczihckizhjisoc  </p>
-                    </div>
-                    </div>
+            </section>
+            <section class="react">
+                <div class="reactions">
+                    <i [style.color]="liked == 'liked'? 'red' : 'black'" (click)="likeDisplay()" class="material-icons like">{{liked == "liked" ? "favorite" : "favorite_border"}}</i>
+                    <i class="material-icons">chat_bubble_outline</i>
                 </div>
-
-                <div class="user">
-                    <div class="user__container">
-                           <img src="../../assets/img/audi.jpeg" alt="User avatar">
-                    <div class="info">
-                        <span class="nickname">nickname</span>
-                        <p>asdas sado kaso dzxkco zjodka jzoxc zjcoadi jaoc jzxoc jzocnhzisjdkfcncxozi nhciozcxncj hzbxic bsIzjczihckizhjisoc  </p>
-                    </div>
-                    </div>
+                <div class="likes">
+                    <p>Likes: {{selectedPhoto.likes}}</p>
                 </div>
-            </div>
+                <input (keyup.enter)="onComment()" [(ngModel)]="newComment.content" class="commentInput" type="text" name="commentInput" id="commentInput" placeholder="Comment...">
+            </section>
         </div>
     </div>
 </div>

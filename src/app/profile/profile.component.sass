@@ -42,6 +42,7 @@ header
     top: 50%
     left: 50%
     width: 80%
+    height: 500px
     transform: translate(-50%, -50%)
     background-color: #f8f8f8
     padding: 0
@@ -52,7 +53,7 @@ header
     text-align: center
     hr
         border-top: 1px solid #d8d8d8
-    button
+    .cancelModal
         font-size: 1.2em
         position: absolute
         right: 5px
@@ -66,8 +67,26 @@ header
         padding: 0
         margin: 0
         max-width: 60%
+        height: auto
     .rightPanel
         width: 40%
+        height: 100%
+        .description
+            overflow: auto
+        .comments
+            overflow-x: hidden
+            height: 62.5% 
+        .react
+            padding: 0 1em
+            margin-top: .75em
+            text-align: left
+            .reactions
+                & > * 
+                    margin-right: 5px
+                .like
+                    cursor: pointer
+                .like--clicked
+                     color: red
         .user
                 display: block
                 width: 30vw
