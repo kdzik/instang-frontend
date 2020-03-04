@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
+import { Follow } from '../models/follow';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,12 @@ export class UserService {
     let tokenUrl1 = "http://localhost:8080/rest/user/update";
     let headers1 = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem("token")});
     return this.http.put(tokenUrl1, JSON.stringify(user), {headers: headers1});
+  }
+
+  updateFollow(follow: Follow){
+    let tokenUrl1 = "http://localhost:8080/rest/user/update/followers";
+    let headers1 = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem("token")});
+    return this.http.put(tokenUrl1, JSON.stringify(follow), {headers: headers1});
   }
 
 }
