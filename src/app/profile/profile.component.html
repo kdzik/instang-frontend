@@ -64,7 +64,7 @@
             </section>
             <section class="react">
                 <div class="reactions">
-                    <i [style.color]="liked == 'liked'? 'red' : 'black'" (click)="likeDisplay()" class="material-icons like">{{liked == "liked" ? "favorite" : "favorite_border"}}</i>
+                    <i [style.color]="this.liked == true ? 'red' : 'black'" (click)="likeDisplay()" class="material-icons like">{{this.liked == true ? "favorite" : "favorite_border"}}</i>
                     <i class="material-icons">chat_bubble_outline</i>
                 </div>
                 <div class="likes">

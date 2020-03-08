@@ -4,6 +4,10 @@ import { UserService } from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { PhotoService } from '../services/photo.service';
 import { Photo } from '../models/photo';
+import { Like } from '../models/like';
+import { LikeService } from '../services/like.service';
+import { Comment } from '../models/comment';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-feed',
@@ -15,20 +19,45 @@ export class FeedComponent implements OnInit {
 liked: boolean;
 loggedUser: User = new User();
 photos: Photo[];
+like: Like = new Like();
+commentsContent: string[] = new Array(100);
+newComment: Comment = new Comment();
+removeLikeId: number;
 
-like(){
-  this.liked = !this.liked;
+constructor(private userService: UserService, 
+  private route: ActivatedRoute,
+  private photoService: PhotoService,
+  private likeService: LikeService,
+  private commentService: CommentService
+  ) { }
+
+ngOnInit(): void {
+  this.fetchPhotos();
 }
 
-  constructor(private userService: UserService, 
-    private route: ActivatedRoute,
-    private photoService: PhotoService
-    ) { }
-
-  ngOnInit(): void {
-    this.liked = true;
-    this.fetchPhotos();
+likeDisplay(selectedPhoto: Photo, index: number){
+  if(this.checkLike(selectedPhoto) == false){
+    this.like.photo = selectedPhoto;
+    this.like.photoId = selectedPhoto.photoId; 
+    this.like.userId = this.loggedUser.userId;
+    this.likeService.addLike(this.like).subscribe(
+      res => this.photoService.getPhotoById(selectedPhoto.photoId).subscribe(
+        photo => this.photos[index] = JSON.parse(JSON.stringify(photo)),
+        error => console.log(error)
+      ),
+      error => console.log(error)
+    );
+  } else if (this.checkLike(selectedPhoto) == true) {
+    this.removeLikeId = selectedPhoto.likes.filter(like => like.userId == this.loggedUser.userId)[0].likeId;
+    this.likeService.removeLike(this.removeLikeId).subscribe(
+      res => this.photoService.getPhotoById(selectedPhoto.photoId).subscribe(
+        photo => this.photos[index] = JSON.parse(JSON.stringify(photo)),
+        error => console.log(error)
+      ),
+      error => console.log(error)
+    );
   }
+}
 
   fetchPhotos(){
     this.loggedUser.userName = localStorage.getItem("currentUserName");
@@ -48,16 +77,28 @@ like(){
   );
   }
 
-  checkLike(photo: Photo){
-    if(photo.likedByUserList.filter(user => user.userId == this.loggedUser.userId)[0]){
-      this.liked = true;
-      console.log("liked");
-      console.log(this.liked);
-    } else {
-      this.liked = false;
-      console.log("unliked");
-      console.log(this.liked);
-    }
-    return this.liked;
+  onComment(photo: Photo, index: number){
+    this.newComment.photo=photo;
+    this.newComment.userName=localStorage.getItem("currentUserName");
+    this.newComment.photoId=photo.photoId;
+    this.newComment.content = this.commentsContent[index];
+    this.commentService.addComment(this.newComment).subscribe(
+      res => this.photoService.getPhotoById(photo.photoId).subscribe(
+        photo => this.photos[index] = JSON.parse(JSON.stringify(photo)),
+        error => console.log(error)
+      ),
+       error => console.log(error)
+    );
+    this.commentsContent[index] = "";
+    this.newComment = new Comment();
   }
+
+  checkLike(photo: Photo){
+    if(photo.likes.filter(like => like.userId == this.loggedUser.userId)[0]){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

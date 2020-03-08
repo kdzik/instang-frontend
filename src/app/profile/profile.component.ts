@@ -21,10 +21,11 @@ export class ProfileComponent implements OnInit {
   photos: Photo[];
   user: User = new User();
   selectedPhoto: Photo;
-  liked: string;
+  liked: boolean;
   newComment: Comment = new Comment();
   loggedUser: User = new User();
   followed: string;
+  removeLikeId: number;
 
   test: Follow = new Follow();
   test2: Follow = new Follow();
@@ -45,10 +46,6 @@ export class ProfileComponent implements OnInit {
 
     this.loggedUser.userName = localStorage.getItem("currentUserName");
     this.user.userName = this.route.snapshot.params['username'];
-    // if(this.loggedUser.userName == null){
-    //   this.loggedUser.userName = localStorage.getItem("currentUserName");
-    // }
-
       this.userService.getUserByName(this.user.userName).subscribe(
         user => {
           this.user = JSON.parse(JSON.stringify(user));
@@ -56,7 +53,6 @@ export class ProfileComponent implements OnInit {
           this.photoService.getPhotosByUser(this.user).subscribe(
             photos => {
               console.log(this.photos = JSON.parse(JSON.stringify(user)).photoList);
-          //    console.log(this.photos);
             },
             err => console.log(err)
           )
@@ -84,77 +80,12 @@ export class ProfileComponent implements OnInit {
     this.newComment.content = '';
     this.selectedPhoto = photo;
     this.detailsModal = !this.detailsModal
-    if(this.selectedPhoto.likes.filter(like => like.userId == this.loggedUser.userId)[0]){
-      this.liked = "liked";
-    } else {
-      this.liked = "unliked";
-    }
+    this.liked = this.checkLike(photo);
   }
 
   closeModal(){
     this.detailsModal = !this.detailsModal;
   }
-/*
-  likeDisplay(){
-    if(this.liked == "unliked"){
-      this.liked = "liked";
-      this.liked.userId = this.loggedUser.userId;
-      this.likedby.userName = this.loggedUser.userName;
-   //   this.user.photoList.push(this.selectedPhoto); 
-    //  console.log(this.selectedPhoto);
-    this.selectedPhoto.likedByUserList.push(this.likedby);
-    //  console.log(this.user);
-   //   this.selectedPhoto.likes+=1;
-     console.log(this.selectedPhoto);
-      this.userService.updateUser(this.user).subscribe();
-      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
-      this.ngOnInit();
-    } else if (this.liked == "liked") {
-      this.liked = "unliked";
-     for(let i = 0; i < this.user.photoList.length; i++){
-        if(this.user.photoList[i].photoId == this.selectedPhoto.photoId){
-          this.user.photoList.splice(i, 1);
-        }
-      }
-     
-
-     for(let i = 0; i < this.selectedPhoto.likedByUserList.length; i++){
-      if(this.selectedPhoto.likedByUserList[i].userId == this.loggedUser.userId){
-        this.selectedPhoto.likedByUserList.splice(i, 1);
-      }
-    }
-    //  this.selectedPhoto.likes-=1;
-      this.userService.updateUser(this.user).subscribe();
-      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
-      this.ngOnInit();
-    }
-  }
-
-  
-
-  likeDisplay(){
-    if(this.liked == "unliked"){
-      this.liked = "liked"
-      this.user.likedPhotoList.push(this.selectedPhoto);
-      console.log(this.user);
-      this.selectedPhoto.likes+=1;
-      this.userService.updateUser(this.user).subscribe();
-      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
-      this.ngOnInit();
-    } else if (this.liked == "liked") {
-      this.liked = "unliked";
-      for(let i = 0; i < this.user.likedPhotoList.length; i++){
-        if(this.user.likedPhotoList[i].photoId == this.selectedPhoto.photoId){
-          this.user.likedPhotoList.splice(i, 1);
-        }
-      }
-      this.selectedPhoto.likes-=1;
-      this.userService.updateUser(this.user).subscribe();
-      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
-    }
-  }
-
-*/
 
 
   onComment(){
@@ -170,28 +101,32 @@ export class ProfileComponent implements OnInit {
       ),
        error => console.log(error)
     );
-    // this.selectedPhoto.commentList.push(this.newComment);
     this.newComment = new Comment();
   }
 
   likeDisplay(){
-    if(this.liked == "unliked"){
-      this.liked = "liked";
+    if(this.liked == false){
       this.like.photo = this.selectedPhoto;
       this.like.photoId = this.selectedPhoto.photoId; 
       this.like.userId = this.loggedUser.userId;
       this.likeService.addLike(this.like).subscribe(
         res => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
-          photo => this.selectedPhoto = JSON.parse(JSON.stringify(photo)),
+          photo => { 
+            this.selectedPhoto = JSON.parse(JSON.stringify(photo));
+            this.liked = this.checkLike(this.selectedPhoto);
+          },
           error => console.log(error)
         ),
         error => console.log(error)
       );
-    } else if (this.liked == "liked") {
-      this.liked = "unliked";
-      this.likeService.removeLike(this.loggedUser.userId).subscribe(
+    } else if (this.liked == true) {
+      this.removeLikeId = this.selectedPhoto.likes.filter(like => like.userId == this.loggedUser.userId)[0].likeId;
+      this.likeService.removeLike(this.removeLikeId).subscribe(
         res => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
-          photo => this.selectedPhoto = JSON.parse(JSON.stringify(photo)),
+          photo => { 
+            this.selectedPhoto = JSON.parse(JSON.stringify(photo));
+            this.liked = this.checkLike(this.selectedPhoto);
+          },
           error => console.log(error)
         ),
         error => console.log(error)
@@ -227,6 +162,14 @@ export class ProfileComponent implements OnInit {
       this.userService.updateUser(this.loggedUser).subscribe();
       this.userService.updateUser(this.user).subscribe();
       this.ngOnInit();
+    }
+  }
+
+  checkLike(photo: Photo){
+    if(photo.likes.filter(like => like.userId == this.loggedUser.userId)[0]){
+      return true;
+    } else {
+      return false;
     }
   }
 

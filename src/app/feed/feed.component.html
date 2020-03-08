@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="feed">
-            <div *ngFor="let photo of photos" class="feed__item">
+            <div *ngFor="let photo of photos; let i = index" class="feed__item">
                 <header>
                     <a [routerLink]="['./profile/', photo.userName]">{{photo.userName}}</a>
                 </header>
@@ -19,22 +19,22 @@
                 </main>
                 <footer>
                     <div class="reactions">
-                        <i [style.color]="checkLike(photo) == true ? 'black' : 'red'" (click)="like()" class="material-icons like">{{checkLike(photo) == true ? "favorite_border" : "favorite"}}</i>
+                        <i [style.color]="checkLike(photo) == false ? 'black' : 'red'" (click)="likeDisplay(photo, i)" class="material-icons like">{{checkLike(photo) == false ? "favorite_border" : "favorite"}}</i>
                         <i class="material-icons">chat_bubble_outline</i>
                     </div>
                     <div class="likes">
-                        Likes: {{photo.likes}}
+                        Likes: {{photo.likes.length}}
                     </div>
                     <div class="description">
-                        <p><a href="#">Autor posta</a>{{photo.description}}</p>
+                        <p><a href="#">{{photo.userName}}</a>{{photo.description}}</p>
                     </div>
                     <div class="comments">
-                        <div *ngFor="let comment of photo.comments" class="comment">
-                            <p><a href="#">Autor komentarza</a>{{comment.content}}</p>
+                        <div *ngFor="let comment of photo.commentList" class="comment">
+                            <p><a href="#">{{comment.userName}}</a>{{comment.content}}</p>
                         </div>
                     </div>
                     <div class="add__comment">
-                        <input type="text" name="comment" id="addComment" placeholder="Comment...">
+                        <input (keyup.enter)="onComment(photo, i)" [(ngModel)]="commentsContent[i]" class="commentInput" type="text" name="commentInput" id="commentInput" placeholder="Comment...">
                     </div>
                 </footer>
             </div>
