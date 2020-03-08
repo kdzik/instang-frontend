@@ -2,9 +2,10 @@
     <div class="container">
         <div class="user">
             <div class="user__container">
-                   <img src="../../assets/img/einstein.jpg" alt="User avatar">
+                <img *ngIf="profilePicture != null" src="http://localhost:8080/images/{{profilePicture}}" alt="Profile picture">
+                <img *ngIf="profilePicture == null" src="../../assets/img/einstein.jpg" alt="Profile picture">
             <div class="user__info">
-                <span class="nickname">{{loggedUser.userName}}</span>
+                <a [routerLink]="['./profile/', loggedUser.userName]" class="nickname">{{loggedUser.userName}}</a>
                 <span class="name-surname">{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
             </div>
             </div>
@@ -23,14 +24,14 @@
                         <i class="material-icons">chat_bubble_outline</i>
                     </div>
                     <div class="likes">
-                        Likes: {{photo.likes.length}}
+                        <span>Likes: {{photo.likes.length}}</span>
                     </div>
                     <div class="description">
-                        <p><a href="#">{{photo.userName}}</a>{{photo.description}}</p>
+                        <p><a routerLink="./profile/{{photo.userName}}">{{photo.userName}}</a>{{photo.description}}</p>
                     </div>
                     <div class="comments">
                         <div *ngFor="let comment of photo.commentList" class="comment">
-                            <p><a href="#">{{comment.userName}}</a>{{comment.content}}</p>
+                            <p><a routerLink="./profile/{{comment.userName}}">{{comment.userName}}</a>{{comment.content}}</p>
                         </div>
                     </div>
                     <div class="add__comment">

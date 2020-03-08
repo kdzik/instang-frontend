@@ -3,7 +3,8 @@
         <header>
             <div class="wrapper">
                 <div class="wrapper__second">
-              <img class="profile__picture" src="../../assets/img/einstein.jpg" alt="Profile picture">
+              <img *ngIf="profilePicture != null" class="profile__picture" src="http://localhost:8080/images/{{profilePicture}}" alt="Profile picture">
+              <img *ngIf="profilePicture == null" class="profile__picture" src="../../assets/img/einstein.jpg" alt="Profile picture">
               </div>
             </div>
               <div class="profile__info">
@@ -12,7 +13,7 @@
                     <li>Posts: {{this.user.photoList.length}}</li>
                     <li (click)="this.followersModal =! this.followersModal">{{this.user.followers.length}} Followers</li>
                     <li (click)="this.followedModal =! this.followedModal">Followed: {{this.user.followed.length}}</li>
-                    <button (click)="onFollow()">{{followed == "followed" ? "Unfollow" : "Follow"}}</button>
+                    <a class="waves-effect waves-light btn" (click)="onFollow()">{{followed == "followed" ? "Unfollow" : "Follow"}}</a>
                 </ul>
                 <div class="description">
                     desca sa doasd kadokz ckzxo coasjd oasd opa jcj.dsa dasd ads ado asd koask cz z xadsasd.

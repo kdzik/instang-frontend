@@ -12,4 +12,5 @@ export class User {
   //  public likedPhotoList: Photo[];
     public followers: Follow[];
     public followed: Follow[];
+    public avatarId: number;
 }

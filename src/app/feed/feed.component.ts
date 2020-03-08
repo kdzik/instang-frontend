@@ -23,6 +23,7 @@ like: Like = new Like();
 commentsContent: string[] = new Array(100);
 newComment: Comment = new Comment();
 removeLikeId: number;
+profilePicture: string;
 
 constructor(private userService: UserService, 
   private route: ActivatedRoute,
@@ -66,6 +67,14 @@ likeDisplay(selectedPhoto: Photo, index: number){
     user => {
       this.loggedUser = JSON.parse(JSON.stringify(user));
       console.log(this.loggedUser);
+      if(this.loggedUser.avatarId != null){
+        this.photoService.getPhotoById(this.loggedUser.avatarId).subscribe(
+          res => {
+            this.profilePicture = JSON.parse(JSON.stringify(res)).imageName;
+          },
+          err => console.log(err)
+        );
+      }
       this.photoService.getFollowedUsersPhotos(this.loggedUser).subscribe(
         data => {
           this.photos = JSON.parse(JSON.stringify(data));

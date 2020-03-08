@@ -21,8 +21,23 @@
     <div class="modal__body">
         <button (click)="uploadModal = !uploadModal" class="cancelModal"><i class="material-icons">clear</i></button>
         <p>Pick image to be uploaded. (Accepted formats *.jpg, *.jpeg, *.png, *.gif)</p>
-        <input type="text" [(ngModel)]="newPhoto.description" name="photoDescription" id="photoDescription">
-        <input (change)="onFileChange($event)" type="file" name="uploadFile" id="uploadFile">
+        <input type="text" [(ngModel)]="newPhoto.description" name="photoDescription" id="photoDescription" placeholder="Image description...">
+        <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input (change)="onFileChange($event)" type="file" name="uploadFile" id="uploadFile" placeholder="Upload image...">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+          </div>
+
+        <p style="text-align: left;margin-bottom: 0;">
+            <label>
+                <input type="checkbox" [(ngModel)]="setAsAvatar" name="setAsAvatar" id="setAsAvatar">
+                <span>Set as avatar</span>
+            </label>
+          </p>
         <button (click)="onFileSend()" class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
           </button>

@@ -13,28 +13,36 @@ main
                 border: 1px solid #e8e8e8
                 border-radius: 1em
                 margin-bottom: 1.5em
-                header a
-                    padding: .3em .3em 0 .5em
-                    margin: 0
-                    font-size: 1.2em
-                    font-weight: bold
+                header 
+                    padding: .5em 0 0.3em 1em
+                    a
+                        margin: 0
+                        font-size: 1.2em
+                        font-weight: bold
                 main 
                     margin: 0
                     img
                         width: 100%
                 footer
+                    font-size: 1.1em
                     p a
                         color: #000
                         margin-right: 5px
                         font-weight: bold
                     .reactions
                         padding: 0 .5em
+                        i
+                            font-size: 1.8em
                         & > * 
                             margin-right: 5px
                         .like
                             cursor: pointer
                         .like--clicked
                             color: red
+                    .likes
+                        span
+                            font-weight: 700
+                            font-size: .9em
                     .description
                         margin: .5em 0
                         p
@@ -68,6 +76,7 @@ main
                 margin-left: 10px
                 .nickname
                     font-weight: bold
+                    color: #000
                 .name-surname
                     font-size: 0.8em
                     color: #666

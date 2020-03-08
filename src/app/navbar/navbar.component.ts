@@ -21,6 +21,7 @@ photoAdded: boolean = false;
 user: User;
 selectedFile: File = null;
 loggedUserName: string;
+setAsAvatar: boolean
 
   constructor(private loginService: LoginService, private userService: UserService, private addPhotoService: AddPhotoService) { }
 
@@ -39,6 +40,10 @@ loggedUserName: string;
           data => {
             this.photoAdded = true;
             this.newPhoto = new Photo();
+            if(this.setAsAvatar == true){
+              this.user.avatarId = JSON.parse(JSON.stringify(data)).photoId;
+              this.userService.updateUser(this.user).subscribe();
+            }
           },
           err => console.log(err)
         )
@@ -47,6 +52,7 @@ loggedUserName: string;
       console.log("ERROR")}
     )
   }
+
 
 
   uploadImg(){

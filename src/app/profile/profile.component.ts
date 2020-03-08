@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   loggedUser: User = new User();
   followed: string;
   removeLikeId: number;
+  profilePicture: string;
 
   test: Follow = new Follow();
   test2: Follow = new Follow();
@@ -51,6 +52,14 @@ export class ProfileComponent implements OnInit {
       this.userService.getUserByName(this.user.userName).subscribe(
         user => {
           this.user = JSON.parse(JSON.stringify(user));
+          if(this.user.avatarId != null){
+            this.photoService.getPhotoById(this.user.avatarId).subscribe(
+              res => {
+                this.profilePicture = JSON.parse(JSON.stringify(res)).imageName;
+              },
+              err => console.log(err)
+            );
+          }
           console.log(this.user);
           this.photoService.getPhotosByUser(this.user).subscribe(
             photos => {
