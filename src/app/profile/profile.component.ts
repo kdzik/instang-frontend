@@ -18,6 +18,8 @@ import { LikeService } from '../services/like.service';
 export class ProfileComponent implements OnInit {
 
   detailsModal: boolean;
+  followersModal: boolean;
+  followedModal: boolean;
   photos: Photo[];
   user: User = new User();
   selectedPhoto: Photo;
@@ -81,10 +83,6 @@ export class ProfileComponent implements OnInit {
     this.selectedPhoto = photo;
     this.detailsModal = !this.detailsModal
     this.liked = this.checkLike(photo);
-  }
-
-  closeModal(){
-    this.detailsModal = !this.detailsModal;
   }
 
 

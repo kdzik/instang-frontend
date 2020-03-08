@@ -10,8 +10,8 @@
                 <h5>{{this.user.userName}}</h5>
                 <ul>
                     <li>Posts: {{this.user.photoList.length}}</li>
-                    <li>{{this.user.followers.length}} Followers</li>
-                    <li>Followed: {{this.user.followed.length}}</li>
+                    <li (click)="this.followersModal =! this.followersModal">{{this.user.followers.length}} Followers</li>
+                    <li (click)="this.followedModal =! this.followedModal">Followed: {{this.user.followed.length}}</li>
                     <button (click)="onFollow()">{{followed == "followed" ? "Unfollow" : "Follow"}}</button>
                 </ul>
                 <div class="description">
@@ -31,7 +31,7 @@
 <div *ngIf="detailsModal" class="myModal">
     <div class="modal__body">
         <img src="http://localhost:8080/images/{{selectedPhoto.imageName}}" alt="Picture">
-        <button (click)="closeModal()" class="cancelModal"><i class="material-icons">clear</i></button>
+        <button (click)="this.detailsModal = !this.detailsModal" class="cancelModal"><i class="material-icons">clear</i></button>
         <div class="rightPanel">
             <div class="user">
                 <div class="user__container">
@@ -76,6 +76,30 @@
     </div>
 </div>
 
+
+<div *ngIf="followersModal" class="myModal">
+    <div class="modal__body modal__follow">
+        <button (click)="this.followersModal =! this.followersModal" class="cancelModal"><i class="material-icons">clear</i></button>
+        <div class="follow__container">
+            <h5>Followers</h5>
+            <ul>
+                <li *ngFor="let follower of this.user.followers"><a routerLink="../{{follower.userName}}">{{follower.userName}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="followedModal" class="myModal">
+    <div class="modal__body modal__follow">
+        <button (click)="this.followedModal =! this.followedModal" class="cancelModal"><i class="material-icons">clear</i></button>
+        <div class="follow__container">
+            <h5>Followed</h5>
+            <ul>
+                <li *ngFor="let followed of this.user.followed"><a routerLink="../{{followed.userName}}">{{followed.userName}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 
     </div>
