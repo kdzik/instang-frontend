@@ -7,6 +7,8 @@ import { User } from '../models/user';
 import { Comment } from '../models/comment';
 import { CommentService } from '../services/comment.service';
 import { Follow } from '../models/follow';
+import { Like } from '../models/like';
+import { LikeService } from '../services/like.service';
 
 @Component({
   selector: 'app-profile',
@@ -27,12 +29,15 @@ export class ProfileComponent implements OnInit {
   test: Follow = new Follow();
   test2: Follow = new Follow();
 
+  like: Like = new Like();
+
   constructor(
       private router: Router,
       private route: ActivatedRoute,
       private photoService: PhotoService, 
       private userService: UserService, 
-      private commentService: CommentService
+      private commentService: CommentService,
+      private likeService: LikeService
      ) { }
 
   ngOnInit(): void {
@@ -79,7 +84,7 @@ export class ProfileComponent implements OnInit {
     this.newComment.content = '';
     this.selectedPhoto = photo;
     this.detailsModal = !this.detailsModal
-    if(this.user.likedPhotoList.filter(photo => photo.photoId == this.selectedPhoto.photoId)[0]){
+    if(this.selectedPhoto.likes.filter(like => like.userId == this.loggedUser.userId)[0]){
       this.liked = "liked";
     } else {
       this.liked = "unliked";
@@ -89,6 +94,43 @@ export class ProfileComponent implements OnInit {
   closeModal(){
     this.detailsModal = !this.detailsModal;
   }
+/*
+  likeDisplay(){
+    if(this.liked == "unliked"){
+      this.liked = "liked";
+      this.liked.userId = this.loggedUser.userId;
+      this.likedby.userName = this.loggedUser.userName;
+   //   this.user.photoList.push(this.selectedPhoto); 
+    //  console.log(this.selectedPhoto);
+    this.selectedPhoto.likedByUserList.push(this.likedby);
+    //  console.log(this.user);
+   //   this.selectedPhoto.likes+=1;
+     console.log(this.selectedPhoto);
+      this.userService.updateUser(this.user).subscribe();
+      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
+      this.ngOnInit();
+    } else if (this.liked == "liked") {
+      this.liked = "unliked";
+     for(let i = 0; i < this.user.photoList.length; i++){
+        if(this.user.photoList[i].photoId == this.selectedPhoto.photoId){
+          this.user.photoList.splice(i, 1);
+        }
+      }
+     
+
+     for(let i = 0; i < this.selectedPhoto.likedByUserList.length; i++){
+      if(this.selectedPhoto.likedByUserList[i].userId == this.loggedUser.userId){
+        this.selectedPhoto.likedByUserList.splice(i, 1);
+      }
+    }
+    //  this.selectedPhoto.likes-=1;
+      this.userService.updateUser(this.user).subscribe();
+      this.photoService.updatePhoto(this.selectedPhoto).subscribe();
+      this.ngOnInit();
+    }
+  }
+
+  
 
   likeDisplay(){
     if(this.liked == "unliked"){
@@ -98,9 +140,7 @@ export class ProfileComponent implements OnInit {
       this.selectedPhoto.likes+=1;
       this.userService.updateUser(this.user).subscribe();
       this.photoService.updatePhoto(this.selectedPhoto).subscribe();
-
       this.ngOnInit();
-
     } else if (this.liked == "liked") {
       this.liked = "unliked";
       for(let i = 0; i < this.user.likedPhotoList.length; i++){
@@ -114,6 +154,9 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+*/
+
+
   onComment(){
     console.log(this.selectedPhoto);
     console.log(this.selectedPhoto.commentList);
@@ -121,49 +164,54 @@ export class ProfileComponent implements OnInit {
     this.newComment.userName=localStorage.getItem("currentUserName");
     this.newComment.photoId=this.selectedPhoto.photoId;
     this.commentService.addComment(this.newComment).subscribe(
-      photo => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
+      res => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
         photo => this.selectedPhoto = JSON.parse(JSON.stringify(photo)),
         error => console.log(error)
-      )
-      // error => console.log(error)
+      ),
+       error => console.log(error)
     );
     // this.selectedPhoto.commentList.push(this.newComment);
-
-
     this.newComment = new Comment();
   }
 
+  likeDisplay(){
+    if(this.liked == "unliked"){
+      this.liked = "liked";
+      this.like.photo = this.selectedPhoto;
+      this.like.photoId = this.selectedPhoto.photoId; 
+      this.like.userId = this.loggedUser.userId;
+      this.likeService.addLike(this.like).subscribe(
+        res => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
+          photo => this.selectedPhoto = JSON.parse(JSON.stringify(photo)),
+          error => console.log(error)
+        ),
+        error => console.log(error)
+      );
+    } else if (this.liked == "liked") {
+      this.liked = "unliked";
+      this.likeService.removeLike(this.loggedUser.userId).subscribe(
+        res => this.photoService.getPhotoById(this.selectedPhoto.photoId).subscribe(
+          photo => this.selectedPhoto = JSON.parse(JSON.stringify(photo)),
+          error => console.log(error)
+        ),
+        error => console.log(error)
+      );
+    }
+  }
+
   onFollow(){
-    console.log(this.followed);
+    console.log("Actual status " + this.followed);
       if(this.followed == "unfollowed"){
       this.followed = "followed";
-                  console.log("pushuje");
-     // this.test2 = Object.assign({}, this.user);
       this.test2.userId = this.user.userId;
       this.test2.userName = this.user.userName;
-      // this.test2.followers.length = 0;
-      // this.test2.followed.length = 0;
-     this.loggedUser.followed.push(this.test2);
-              console.log("FOLLOWed");
-           //   console.log(this.test2);
-               console.log(this.loggedUser);
-    // this.test = Object.assign({}, this.loggedUser);
- //   this.test = JSON.parse(JSON.stringify(this.loggedUser));
-    this.test.userId = this.loggedUser.userId;
-    this.test.userName = this.loggedUser.userName;
-             // console.log("test");
-            //  console.log(this.test);
-           //   console.log(this.loggedUser);
-    // this.test.followers.length = 0;
-   //  this.test.followed.length = 0;
-    this.user.followers.push(this.test);
-                console.log("followers");
-              console.log(this.user);
-             //   console.log(this.test);
+      this.loggedUser.followed.push(this.test2);
+      this.test.userId = this.loggedUser.userId;
+      this.test.userName = this.loggedUser.userName;
+      this.user.followers.push(this.test);
       this.userService.updateUser(this.loggedUser).subscribe();
       this.userService.updateUser(this.user).subscribe();
-   //   this.ngOnInit();
-
+      this.ngOnInit();
     } else if (this.followed == "followed") {
       this.followed = "unfollowed";
       for(let i = 0; i < this.loggedUser.followed.length; i++){
@@ -178,25 +226,8 @@ export class ProfileComponent implements OnInit {
       }
       this.userService.updateUser(this.loggedUser).subscribe();
       this.userService.updateUser(this.user).subscribe();
+      this.ngOnInit();
     }
   }
 
 }
-  // if(this.followed == "unfollowed"){
-    //   this.followed = "followed";
-    //   this.user.followed = [];
-    //   this.user.followers = [];
-    //   console.log(this.user);
-    //   console.log("pushuje");
-    //  this.loggedUser.followed.push(this.user);
-    //  console.log(this.loggedUser);
-    //  console.log("PRZERWA");
-    //  this.loggedUser.followed =  [];
-    //  this.loggedUser.followers = [];
-    //   this.user.followers.push(this.loggedUser);
-    //   console.log(this.user);
-    //   this.userService.updateUser(this.loggedUser).subscribe();
-    //   this.userService.updateUser(this.user).subscribe();
-    //   this.ngOnInit();
-
-    // } else if (this.followed == "followed") {

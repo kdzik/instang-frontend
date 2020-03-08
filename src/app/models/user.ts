@@ -9,7 +9,7 @@ export class User {
     public password: string;
     public created: Date;
     public photoList: Photo[];
-    public likedPhotoList: Photo[];
+  //  public likedPhotoList: Photo[];
     public followers: Follow[];
     public followed: Follow[];
 }

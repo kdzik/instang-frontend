@@ -34,6 +34,7 @@ loggedUserName: string;
         this.user = JSON.parse(JSON.stringify(user));
         console.log(this.user);
         this.newPhoto.user = this.user;
+        this.newPhoto.userName = this.user.userName;
         this.addPhotoService.sendPhoto(this.newPhoto).subscribe(
           data => {
             this.photoAdded = true;

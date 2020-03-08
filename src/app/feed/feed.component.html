@@ -4,36 +4,33 @@
             <div class="user__container">
                    <img src="../../assets/img/einstein.jpg" alt="User avatar">
             <div class="user__info">
-                <span class="nickname">nickname</span>
-                <span class="name-surname">Krystian Dzik</span>
+                <span class="nickname">{{loggedUser.userName}}</span>
+                <span class="name-surname">{{loggedUser.firstName}} {{loggedUser.lastName}}</span>
             </div>
             </div>
         </div>
         <div class="feed">
-            <div class="feed__item">
+            <div *ngFor="let photo of photos" class="feed__item">
                 <header>
-                    <h5>username</h5>
+                    <a [routerLink]="['./profile/', photo.userName]">{{photo.userName}}</a>
                 </header>
                 <main>
-                    <img src="../../assets/img/img1.jpeg" alt="image">
+                    <img src="http://localhost:8080/images/{{photo.imageName}}" alt="image">
                 </main>
                 <footer>
                     <div class="reactions">
-                        <i [style.color]="liked == true? 'black' : 'red'" (click)="like()" class="material-icons like">{{liked == true ? "favorite_border" : "favorite"}}</i>
+                        <i [style.color]="checkLike(photo) == true ? 'black' : 'red'" (click)="like()" class="material-icons like">{{checkLike(photo) == true ? "favorite_border" : "favorite"}}</i>
                         <i class="material-icons">chat_bubble_outline</i>
                     </div>
                     <div class="likes">
-                        Likes: 12
+                        Likes: {{photo.likes}}
                     </div>
                     <div class="description">
-                        <p><a href="#">Autor posta</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
+                        <p><a href="#">Autor posta</a>{{photo.description}}</p>
                     </div>
                     <div class="comments">
-                        <div class="comment">
-                            <p><a href="#">Autor komentarza</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
-                        </div>
-                        <div class="comment">
-                            <p><a href="#">Autor komentarza</a>to jest opis. asd as das das da sd a</p>
+                        <div *ngFor="let comment of photo.comments" class="comment">
+                            <p><a href="#">Autor komentarza</a>{{comment.content}}</p>
                         </div>
                     </div>
                     <div class="add__comment">
@@ -42,38 +39,6 @@
                 </footer>
             </div>
 
-
-            <div class="feed__item">
-                <header>
-                    <h5>username</h5>
-                </header>
-                <main>
-                    <img src="../../assets/img/img1.jpeg" alt="image">
-                </main>
-                <footer>
-                    <div class="reactions">
-                        <i [style.color]="liked == true? 'black' : 'red'" (click)="like()" class="material-icons like">{{liked == true ? "favorite_border" : "favorite"}}</i>
-                        <i class="material-icons">chat_bubble_outline</i>
-                    </div>
-                    <div class="likes">
-                        Likes: 12
-                    </div>
-                    <div class="description">
-                        <p><a href="#">Autor posta</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
-                    </div>
-                    <div class="comments">
-                        <div class="comment">
-                            <p><a href="#">Autor komentarza</a>przykladowy opis zdjecia to jest opis. asd as das das da sd a</p>
-                        </div>
-                        <div class="comment">
-                            <p><a href="#">Autor komentarza</a>to jest opis. asd as das das da sd a</p>
-                        </div>
-                    </div>
-                    <div class="add__comment">
-                        <input type="text" name="comment" id="addComment" placeholder="Comment...">
-                    </div>
-                </footer>
-            </div>
         </div>
     </div>
 </main>

@@ -34,4 +34,11 @@ export class PhotoService {
     let headers1 = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem("token")});
     return this.http.post(tokenUrl1, JSON.stringify(photo), {headers: headers1});
   }
+
+  getFollowedUsersPhotos(user: User){
+    let tokenUrl1 = "http://localhost:8080/photo/followedPhotos";
+    let headers1 = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer '+localStorage.getItem("token")});
+    return this.http.post(tokenUrl1, JSON.stringify(user), {headers: headers1});
+  }
+
 }

@@ -68,7 +68,7 @@
                     <i class="material-icons">chat_bubble_outline</i>
                 </div>
                 <div class="likes">
-                    <p>Likes: {{selectedPhoto.likes}}</p>
+                    <p>Likes: {{selectedPhoto.likes.length}}</p>
                 </div>
                 <input (keyup.enter)="onComment()" [(ngModel)]="newComment.content" class="commentInput" type="text" name="commentInput" id="commentInput" placeholder="Comment...">
             </section>
