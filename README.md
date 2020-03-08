@@ -1,6 +1,10 @@
 # InstangApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+Instagram clone with most of the official Instagram functionalities.
+- Implemented functionalities: CRUD, sending photos, login and register system, following function, like and
+comment, user searching
+- Technologies (backend): Java, Maven, Hibernate, Spring, MySQL
+- Technologies (frontend): Angular, TypeScript, HTML, CSS/SCSS, Materialize
 
 ## Development server
 
