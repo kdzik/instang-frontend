@@ -22,11 +22,15 @@ user: User;
 selectedFile: File = null;
 loggedUserName: string;
 setAsAvatar: boolean
+users: User[];
+matchingUsers: User[];
+searchInput: string;
 
   constructor(private loginService: LoginService, private userService: UserService, private addPhotoService: AddPhotoService) { }
 
   ngOnInit(): void {
     this.loggedUserName = localStorage.getItem("currentUserName");
+    this.searchUsers();
   }
 
   onFileSend() {
@@ -39,6 +43,8 @@ setAsAvatar: boolean
         this.addPhotoService.sendPhoto(this.newPhoto).subscribe(
           data => {
             this.photoAdded = true;
+            window.location.reload();
+        
             this.newPhoto = new Photo();
             if(this.setAsAvatar == true){
               this.user.avatarId = JSON.parse(JSON.stringify(data)).photoId;
@@ -101,6 +107,20 @@ setAsAvatar: boolean
 
   logout(){
     this.loginService.logout();
+  }
+  
+  searchUsers(){
+    this.userService.getUsers().subscribe(
+      res => {
+        this.users = JSON.parse(JSON.stringify(res));
+        console.log(this.users);
+      },
+      err => console.log(err)
+    );
+  }
+
+  onSearch(event: any){
+    this.matchingUsers = this.users.filter(user => user.userName.includes(event.target.value));
   }
 
 }

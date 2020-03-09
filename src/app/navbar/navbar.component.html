@@ -4,7 +4,12 @@
             <a routerLink="/"><img alt="Instang logo"class="logo__image" src="../../assets/img/coollogo_com-278862762.png"></a>
         </div>
         <div class="search">
-            <input id="search__input" type="text" placeholder="Search">
+            <input id="search__input" [(ngModel)]="searchInput" (keyup)="onSearch($event)" type="text" placeholder="Search">
+            <div *ngIf="searchInput" class="matching__users">
+                <ul>
+                    <li *ngFor="let user of matchingUsers"><a routerLink="./profile/{{user.userName}}" (click)="searchInput = ''">{{user.userName}}</a></li>
+                </ul>
+            </div>
         </div>
         <ul class="options" *ngIf="isLoggedIn()">
             <li (click)="uploadModal = !uploadModal"><i class="material-icons">file_upload</i></li>
@@ -16,6 +21,7 @@
         </ul>
     </div>
 </nav>
+
 
 <div *ngIf="uploadModal" class="myModal">
     <div class="modal__body">
