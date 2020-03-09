@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
             this.model.username = '';
             this.model.password = '';
             this.router.navigateByUrl('/');
+            window.location.reload();
           },
           err => {
             console.log(err);

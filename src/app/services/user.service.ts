@@ -11,8 +11,22 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(){
-  
+  getUsers() {
+    let tokenUrl = 'http://localhost:8080/rest/user/users';
+    let headers = new HttpHeaders({
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+localStorage.getItem('token')
+    });
+    return this.http.get(tokenUrl, {headers: headers});
+  }
+
+  getUsersStartingWith(userName: string){
+    let tokenUrl = 'http://localhost:8080/rest/user/starting';
+    let headers = new HttpHeaders({
+      'Content-Type':'application/json',
+      'Authorization':'Bearer '+localStorage.getItem('token')
+    });
+    return this.http.post<User[]>(tokenUrl, userName, {headers: headers});
   }
 /*
   getUserById(id: number){

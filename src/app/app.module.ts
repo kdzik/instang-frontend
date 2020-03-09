@@ -12,9 +12,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 
-import  { RegisterService } from './services/register.service';
-import { PhotoService } from './services/photo.service';
-
 @NgModule({
   declarations: [
     AppComponent,

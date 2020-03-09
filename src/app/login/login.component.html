@@ -1,7 +1,7 @@
 <div class="container form__container">
     <form class="row" (submit)="onLogin()">
         <input class="input-field" type="text" [(ngModel)]="model.username" name="login" id="login" placeholder="Login...">
-        <input class="input-field" type="text" [(ngModel)]="model.password" name="password" id="password" placeholder="Password...">
+        <input class="input-field" type="password" [(ngModel)]="model.password" name="password" id="password" placeholder="Password...">
         <input class="waves-effect waves-light btn" type="submit" value="Login">
     </form>
     <button (click)="registerModal = !registerModal" class="waves-effect waves-light btn purple darken-2">Sign up</button>
