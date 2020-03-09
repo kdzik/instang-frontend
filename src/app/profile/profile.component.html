@@ -11,13 +11,13 @@
                 <h5>{{this.user.userName}}</h5>
                 <ul>
                     <li>Posts: {{this.user.photoList.length}}</li>
-                    <li (click)="this.followersModal =! this.followersModal">{{this.user.followers.length}} Followers</li>
-                    <li (click)="this.followedModal =! this.followedModal">Followed: {{this.user.followed.length}}</li>
-                    <a class="waves-effect waves-light btn" (click)="onFollow()">{{followed == "followed" ? "Unfollow" : "Follow"}}</a>
+                    <li style="cursor: pointer" (click)="this.followersModal =! this.followersModal">{{this.user.followers.length}} Followers</li>
+                    <li style="cursor: pointer" (click)="this.followedModal =! this.followedModal">Followed: {{this.user.followed.length}}</li>
+                    <a *ngIf="this.user.userName != this.loggedUser.userName" class="waves-effect waves-light btn" (click)="onFollow()">{{followed == "followed" ? "Unfollow" : "Follow"}}</a>
                 </ul>
-                <div class="description">
-                    desca sa doasd kadokz ckzxo coasjd oasd opa jcj.dsa dasd ads ado asd koask cz z xadsasd.
-                </div>
+                <!-- <div class="description">
+                    {{this.user.description}}
+                </div> -->
             </div>
         </header>
 
@@ -36,7 +36,6 @@
         <div class="rightPanel">
             <div class="user">
                 <div class="user__container">
-                       <img src="../../assets/img/einstein.jpg" alt="User avatar">
                 <div class="info">
                     <span class="nickname">{{this.user.userName}}</span>
                 </div>
@@ -46,7 +45,6 @@
             <section class="comments">
                 <div class="user">
                     <div class="user__container">
-                           <img src="../../assets/img/einstein.jpg" alt="User avatar">
                     <div class="info">
                         <a [routerLink]="['../', this.user.userName]" class="nickname">{{this.user.userName}}</a>
                         <p>{{selectedPhoto.description}}</p>
@@ -55,7 +53,6 @@
                 </div>
                 <div *ngFor="let comment of this.selectedPhoto.commentList" class="user">
                     <div class="user__container">
-                           <img src="../../assets/img/einstein.jpg" alt="User avatar">
                     <div class="info">
                         <a [routerLink]="['../', comment.userName]" class="nickname">{{comment.userName}}</a>
                         <p>{{comment.content}}</p>

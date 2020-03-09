@@ -60,28 +60,25 @@ export class ProfileComponent implements OnInit {
               err => console.log(err)
             );
           }
-          console.log(this.user);
           this.photoService.getPhotosByUser(this.user).subscribe(
             photos => {
-              console.log(this.photos = JSON.parse(JSON.stringify(user)).photoList);
+              this.photos = JSON.parse(JSON.stringify(user)).photoList;
             },
             err => console.log(err)
-          )
-        },
-        err => console.log(err)
-      );
+          );
+
 
       this.userService.getUserByName(this.loggedUser.userName).subscribe(
         user => {
           this.loggedUser = JSON.parse(JSON.stringify(user));
-          console.log("logged");
-          console.log(this.loggedUser);
           if(this.loggedUser.followed.filter(user => user.userId == this.user.userId)[0]){
             this.followed = "followed";
           } else {
             this.followed = "unfollowed";
           }
-          console.log("Tutaj");
+        },
+        err => console.log(err)
+      );
         },
         err => console.log(err)
       );
@@ -151,9 +148,18 @@ export class ProfileComponent implements OnInit {
       this.test.userId = this.loggedUser.userId;
       this.test.userName = this.loggedUser.userName;
       this.user.followers.push(this.test);
-      this.userService.updateUser(this.loggedUser).subscribe();
-      this.userService.updateUser(this.user).subscribe();
-      this.ngOnInit();
+      this.userService.updateUser(this.loggedUser).subscribe(
+        res => {
+          this.loggedUser = JSON.parse(JSON.stringify(res));
+          this.userService.updateUser(this.user).subscribe(
+            res => {
+              this.user = JSON.parse(JSON.stringify(res));
+            },
+            err => console.log(err)
+          );
+        },
+        err => console.log(err)
+      );
     } else if (this.followed == "followed") {
       this.followed = "unfollowed";
       for(let i = 0; i < this.loggedUser.followed.length; i++){
@@ -166,9 +172,18 @@ export class ProfileComponent implements OnInit {
           this.user.followers.splice(i, 1);
         }
       }
-      this.userService.updateUser(this.loggedUser).subscribe();
-      this.userService.updateUser(this.user).subscribe();
-      this.ngOnInit();
+      this.userService.updateUser(this.loggedUser).subscribe(
+        res => {
+          this.loggedUser = JSON.parse(JSON.stringify(res));
+          this.userService.updateUser(this.user).subscribe(
+            res => {
+              this.user = JSON.parse(JSON.stringify(res));
+            },
+            err => console.log(err)
+          );
+        },
+        err => console.log(err)
+      );
     }
   }
 
@@ -181,3 +196,54 @@ export class ProfileComponent implements OnInit {
   }
 
 }
+
+
+// this.followService.addFollower(this.test).subscribe(
+//   res => this.userService.getUserByName(this.user.userName).subscribe(
+//     user => { 
+//       this.user = JSON.parse(JSON.stringify(user));
+//       this.followed = this.checkFollowers(this.user);
+//     },
+//     error => console.log(error)
+//   ),
+//   error => console.log(error)
+// );
+
+
+
+// this.followService.addFollowed(this.test2).subscribe(
+//   res => this.userService.getUserByName(this.loggedUser.userName).subscribe(
+//     user => { 
+//       this.loggedUser = JSON.parse(JSON.stringify(user));
+//       this.followed = this.checkFollowed(this.loggedUser);
+//     },
+//     error => console.log(error)
+//   ),
+//   error => console.log(error)
+// );
+
+
+
+// this.removeFollowerId = this.user.followers.filter(follow => follow.userId == this.loggedUser.userId)[0].followId;
+// this.followService.removeFollower(this.removeFollowerId).subscribe(
+//   res => this.userService.getUserByName(this.user.userName).subscribe(
+//     user => { 
+//       this.user = JSON.parse(JSON.stringify(user));
+//       this.followed = this.checkFollowers(this.user);
+//     },
+//     error => console.log(error)
+//   ),
+//   error => console.log(error)
+// );
+
+// this.removeFollowedId = this.user.followed.filter(follow => follow.userId == this.loggedUser.userId)[0].followId;
+// this.followService.removeFollowed(this.removeFollowedId).subscribe(
+//   res => this.userService.getUserByName(this.loggedUser.userName).subscribe(
+//     user => { 
+//       this.loggedUser = JSON.parse(JSON.stringify(user));
+//       this.followed = this.checkFollowers(this.loggedUser);
+//     },
+//     error => console.log(error)
+//   ),
+//   error => console.log(error)
+// );
